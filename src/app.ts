@@ -3,11 +3,13 @@ import express, {Application, Request, Response} from "express" ;
 import carRoutes from './routes/cars';
 
 import { env } from "./config/env";
+
+import { connectDB } from "./config/database";
  
 
 //const PORT = process.env.PORT || 3120; 
 
-const PORT = env.port
+const port = env.port
 
 const app: Application = express(); 
 
@@ -25,25 +27,18 @@ app.get("/ping", async (_req : Request, res: Response) => {
 
  
 
-app.listen(PORT, () => { 
+const startServer = async () => {
+  await connectDB();
 
-  console.log("Server is running on port", PORT); 
-  }); 
-  app.get('/bananas', async (_req : Request, res: Response) => { 
-  res.json({ 
-  message: "this is bananas", 
-  }); 
-}); 
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
 
-app.listen(PORT, () => { 
+};
 
-  console.log("Server is running on port", PORT); 
-  }); 
-  app.get('/crazy', async (_req : Request, res: Response) => { 
-  res.json({ 
-  message: "this is crazy", 
-  }); 
-}); 
+startServer();
+
+
 
 app.use((req, _res, next) => {  
 
