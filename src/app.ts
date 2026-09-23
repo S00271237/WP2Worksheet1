@@ -2,15 +2,16 @@ import express, {Application, Request, Response} from "express" ;
 
 import carRoutes from './routes/cars';
 
+import { env } from "./config/env";
  
 
-const PORT = process.env.PORT || 3120; 
+//const PORT = process.env.PORT || 3120; 
 
- 
+const PORT = env.port
 
 const app: Application = express(); 
 
- 
+
 
 app.get("/ping", async (_req : Request, res: Response) => { 
 
