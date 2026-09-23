@@ -53,9 +53,9 @@ app.use((req, _res, next) => {
 
 
 
+
+
 app.use(express.json());
-
-
 
 app.use('/api/v1/cars', carRoutes)
 
