@@ -1,5 +1,7 @@
 import express, {Application, Request, Response} from "express" ; 
 
+import carRoutes from './routes/cars';
+
  
 
 const PORT = process.env.PORT || 3120; 
@@ -46,4 +48,6 @@ app.use((req, _res, next) => {
 
   console.log(`${req.method} ${req.originalUrl}`); 
   next(); 
-});     
+});    
+
+app.use('/api/v1/cars', carRoutes)
