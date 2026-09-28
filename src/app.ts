@@ -5,7 +5,8 @@ import carRoutes from './routes/cars';
 import { env } from "./config/env";
 
 import { connectDB } from "./config/database";
- 
+
+import {authenticateKey} from './middleware/auth.middleware';
 
 //const PORT = process.env.PORT || 3120; 
 
@@ -53,6 +54,6 @@ app.use((req, _res, next) => {
 
 app.use(express.json());
 
-app.use('/api/v1/cars', carRoutes)
+app.use('/api/v1/cars', authenticateKey, carRoutes)
 
-
+app.use(authenticateKey);
