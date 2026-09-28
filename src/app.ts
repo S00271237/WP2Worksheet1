@@ -8,6 +8,8 @@ import { connectDB } from "./config/database";
 
 import {authenticateKey} from './middleware/auth.middleware';
 
+import { middleware } from './middleware/middleware';
+
 //const PORT = process.env.PORT || 3120; 
 
 const port = env.port
@@ -39,14 +41,7 @@ const startServer = async () => {
 
 startServer();
 
-
-
-app.use((req, _res, next) => {  
-
-  console.log(`${req.method} ${req.originalUrl}`); 
-  next(); 
-});    
-
+app.use(middleware, authenticateKey, carRoutes);
 
 
 
