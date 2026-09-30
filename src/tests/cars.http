@@ -48,8 +48,14 @@ x-api-key: blahblah
 
 ###
 
-PUT  {{endpoint}}/sillycarID HTTP/3.0
+PUT  {{endpoint}}/6abcca6cef96167bc68ff679 HTTP/3.0
 content-type: application/json
 x-api-key: blahblah
+
+{
+    "make" : "Volkswagen",
+    "model" : "CC Passat -18",
+    "year" : 1977
+}
 
 

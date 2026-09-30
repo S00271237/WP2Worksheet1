@@ -10,6 +10,8 @@ import {authenticateKey} from './middleware/auth.middleware';
 
 import { middleware } from './middleware/middleware';
 
+
+
 //const PORT = process.env.PORT || 3120; 
 
 const port = env.port
