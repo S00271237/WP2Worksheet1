@@ -34,7 +34,7 @@ content-type: application/json
 
 
 ###
-GET http://localhost:3000/api/v1/cars HTTP/1.1
+GET http://localhost:3000/api/v1/cars  HTTP/1.1
 content-type: application/json
 x-api-key: blahblah
 
@@ -57,5 +57,11 @@ x-api-key: blahblah
     "model" : "CC Passat -18",
     "year" : 1977
 }
+
+###
+
+GET http://localhost:3000/api-docs HTTP/3.0
+Content-Type: application/json
+x-api-key: blahblah
 
 

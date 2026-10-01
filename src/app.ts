@@ -10,6 +10,9 @@ import {authenticateKey} from './middleware/auth.middleware';
 
 import { middleware } from './middleware/middleware';
 
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
+
 
 
 //const PORT = process.env.PORT || 3120; 
@@ -30,7 +33,11 @@ app.get("/ping", async (_req : Request, res: Response) => {
 
 });
 
- 
+ app.use(
+'/api-docs',
+swaggerUi.serve,
+swaggerUi.setup(swaggerSpec)
+);
 
 const startServer = async () => {
   await connectDB();
@@ -42,15 +49,11 @@ const startServer = async () => {
 };
 
 startServer();
-
-app.use(middleware, authenticateKey, carRoutes);
-
-
-
-
-
+app.use(middleware, carRoutes);
 app.use(express.json());
-
-app.use('/api/v1/cars', authenticateKey, carRoutes)
-
 app.use(authenticateKey);
+app.use('/api/v1/cars', carRoutes)
+
+
+
+  

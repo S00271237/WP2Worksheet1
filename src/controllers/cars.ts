@@ -10,10 +10,23 @@ const carService = new CarService();
 export class CarController {
 
   getCars = async (_req: Request, res: Response): Promise<void> => {
-
+ /**
+ * @openapi
+ * /cars:
+ *   get:
+ *     summary: Retrieve all cars
+ *     tags:
+ *       - Cars
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved cars
+ *       500:
+ *         description: Internal server error
+*/
     try {
       const cars = await carService.getAllCars();
       res.status(200).json(cars);
+
     } catch (error) {
       res.status(500).json({ message: 'Error fetching cars', error });
     }
@@ -22,7 +35,30 @@ export class CarController {
 
 
 
+
   getCarById = async (req: Request, res: Response): Promise<void> => {
+    /**
+* @openapi
+* /cars/{id}:
+*   get:
+*     summary: Get a car by ID
+*     tags:
+*       - Cars
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*     responses:
+*       200:
+*         description: Car found
+*       404:
+*         description: Car not found
+*       500:
+*         description: Internal server error
+*/
+
     try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
       const car = await carService.getCarById(id);
@@ -38,11 +74,35 @@ export class CarController {
 
 
   createCar = async (req: Request, res: Response): Promise<void> => {
+
+
     const validation = createCarZSchema.safeParse(req.body);
+
     if (!validation.success) {
       res.status(400).json({ message: 'Invalid car data', errors: validation.error.issues });
       return;
     }
+            /**
+ * @openapi
+ * /cars:
+ *   post:
+ *     summary: Create a new carq
+ *     tags:
+ *       - Cars
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateCarInput'
+ *     responses:
+ *       201:
+ *         description: Successfully created car
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
   };
 
 
@@ -61,6 +121,33 @@ export class CarController {
   };
 
   deleteCar = async (_req: Request, res: Response): Promise<void> => {
+    /**
+* @openapi
+* /cars/{id}:
+*   delete:
+*     summary: Delete a car by ID
+*     tags:
+*       - Cars
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*       - in: header
+*         name: x-api-key
+*         required: true
+*         schema:
+*           type: string
+*     responses:
+*       200:
+*         description: Car DELETED
+*       404:
+*         description: Car not found
+*       500:
+*         description: Internal server error
+*/
+
     try {
       const id = Array.isArray(_req.params.id) ? _req.params.id[0] : _req.params.id;
       const deletedCar = await carService.deleteCar(id);
