@@ -54,6 +54,4 @@ app.use(express.json());
 app.use(authenticateKey);
 app.use('/api/v1/cars', carRoutes)
 
-
-
-  
+export { app };
