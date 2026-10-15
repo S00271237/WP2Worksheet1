@@ -12,6 +12,7 @@ import { middleware } from './middleware/middleware';
 
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
+import  cors  from "cors";
 
 
 
@@ -52,6 +53,8 @@ startServer();
 app.use(middleware, carRoutes);
 app.use(express.json());
 app.use(authenticateKey);
+app.use(cors());
+
 app.use('/api/v1/cars', carRoutes)
 
 export { app };
