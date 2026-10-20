@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 
 import { CarService } from '../services/cars';
 
-import { createCarZSchema } from '../models/cars';
-
 const carService = new CarService();
 
 
@@ -36,57 +34,21 @@ export class CarController {
 
 
 
-  getCarById = async (req: Request, res: Response): Promise<void> => {
-    /**
-* @openapi
-* /cars/{id}:
-*   get:
-*     summary: Get a car by ID
-*     tags:
-*       - Cars
-*     parameters:
-*       - in: path
-*         name: id
-*         required: true
-*         schema:
-*           type: string
-*     responses:
-*       200:
-*         description: Car found
-*       404:
-*         description: Car not found
-*       500:
-*         description: Internal server error
-*/
+getCarById = async (req: Request, res: Response): Promise<void> => {
 
-    try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
       const car = await carService.getCarById(id);
-      if (!car) {
-        res.status(404).json({ message: 'Car not found' });
-        return;
-      }
       res.status(200).json(car);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching car', error });
-    }
   };
 
 
+
   createCar = async (req: Request, res: Response): Promise<void> => {
-
-
-    const validation = createCarZSchema.safeParse(req.body);
-
-    if (!validation.success) {
-      res.status(400).json({ message: 'Invalid car data', errors: validation.error.issues });
-      return;
-    }
-            /**
+    /**
  * @openapi
  * /cars:
  *   post:
- *     summary: Create a new carq
+ *     summary: Create a new car
  *     tags:
  *       - Cars
  *     requestBody:
@@ -103,6 +65,8 @@ export class CarController {
  *       500:
  *         description: Internal server error
  */
+    const car = await carService.createCar(req.body);
+    res.status(201).json(car);
   };
 
 

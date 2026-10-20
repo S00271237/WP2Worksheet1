@@ -13,6 +13,7 @@ import { middleware } from './middleware/middleware';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 import  cors  from "cors";
+import { errorHandler } from "./middleware/error.middleware";
 
 
 
@@ -33,6 +34,15 @@ app.get("/ping", async (_req : Request, res: Response) => {
   }); 
 
 });
+app.get("/pong", (_req : Request, res: Response) => {
+    console.log("Received request to /pong");
+    throw new Error("Simulated error in /pong route");
+});
+
+app.get("/pung", async (_req : Request, res: Response) => {
+    console.log("Received request to /pung");
+     throw new Error("Simulated error in /pung route");
+});
 
  app.use(
 '/api-docs',
@@ -49,12 +59,18 @@ const startServer = async () => {
 
 };
 
+
+
 startServer();
-app.use(middleware, carRoutes);
 app.use(express.json());
+app.use(middleware, carRoutes);
 app.use(authenticateKey);
 app.use(cors());
 
 app.use('/api/v1/cars', carRoutes)
+app.use(errorHandler);
+
+
+
 
 export { app };

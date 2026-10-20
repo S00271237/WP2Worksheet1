@@ -7,11 +7,11 @@ POST {{endpoint}} HTTP/1.1
 content-type: application/json
 x-api-key: blahblah
 
-{ "make" : "Volkswagen",
-  "model" : "CC Passat 3",
-  "year" : 1922
+{
+    "make": "Renault",
+    "model": "hatchback",
+    "year": 1972
 }
-
 
 
 ###
@@ -43,7 +43,7 @@ x-api-key: blahblah
 
 DELETE  {{endpoint}}/6ab54827779e84d4aa0e3a18 HTTP/3.0
 content-type: application/json
-x-api-key: blahblah
+api-key: blahblah
 
 
 ###
