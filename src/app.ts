@@ -62,13 +62,19 @@ const startServer = async () => {
 
 
 startServer();
+
+
 app.use(express.json());
 app.use(middleware, carRoutes);
 app.use(authenticateKey);
 app.use(cors());
 
 app.use('/api/v1/cars', carRoutes)
+
 app.use(errorHandler);
+// Special code to add a delay - remove later
+
+app.use((_req, _res, next) => setTimeout(next, 2000));
 
 
 
