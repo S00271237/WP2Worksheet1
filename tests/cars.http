@@ -1,0 +1,67 @@
+@endpoint = http://localhost:3000/api/v1/cars
+
+
+###
+# @name postACar
+POST {{endpoint}} HTTP/1.1
+content-type: application/json
+x-api-key: blahblah
+
+{
+    "make": "Renault",
+    "model": "hatchback",
+    "year": 1972
+}
+
+
+###
+
+@newCar = {{postACar.response.body._id}}
+
+###
+GET {{endpoint}}/{{newCar}} HTTP/3.0
+content-type: application/json
+x-api-key: blahblah
+
+###
+GET  {{endpoint}} HTTP/1.1
+content-type: application/json
+x-api-key: blahblah
+
+###
+GET  {{endpoint}}/sillycarID HTTP/3.0
+content-type: application/json
+
+
+###
+GET http://localhost:3000/api/v1/cars  HTTP/1.1
+content-type: application/json
+x-api-key: blahblah
+
+
+###
+
+DELETE  {{endpoint}}/6ab54827779e84d4aa0e3a18 HTTP/3.0
+content-type: application/json
+api-key: blahblah
+
+
+###
+
+PUT  {{endpoint}}/6abcca6cef96167bc68ff679 HTTP/3.0
+content-type: application/json
+x-api-key: blahblah
+
+{
+    "make" : "Volkswagen",
+    "model" : "CC Passat -18",
+    "year" : 1977
+}
+
+###
+
+GET http://localhost:3000/api-docs HTTP/3.0
+Content-Type: application/json
+x-api-key: blahblah
+
+
