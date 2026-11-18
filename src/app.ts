@@ -15,6 +15,8 @@ import { swaggerSpec } from './config/swagger';
 import  cors  from "cors";
 import { errorHandler } from "./middleware/error.middleware";
 
+import authRoutes from './routes/auth';
+ 
 
 
 //const PORT = process.env.PORT || 3120; 
@@ -22,6 +24,8 @@ import { errorHandler } from "./middleware/error.middleware";
 const port = env.port
 
 const app: Application = express(); 
+
+app.use('/api/v1/auth', authRoutes);
 
 
 

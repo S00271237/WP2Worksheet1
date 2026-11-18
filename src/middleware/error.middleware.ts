@@ -33,3 +33,14 @@ export const errorHandler = (err: Error, _req: Request, res: Response, _next: Ne
   res.status(500).json({ error: 'error',
         message: 'Server Error' });
 };
+export class UserAlreadyExistsError extends AppError {
+  constructor() {
+    super('User already exists', 409);
+  }
+}
+
+export class UnauthorizedError  extends AppError {
+  constructor(message: string) {
+    super(message, 401);
+  }
+}
