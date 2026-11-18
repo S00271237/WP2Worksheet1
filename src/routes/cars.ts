@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { CarController } from '../controllers/cars';
-import { authenticateKey } from '../middleware/auth.middleware';
+import { authenticateJWT, authenticateKey } from '../middleware/auth.middleware';
 import {validate} from '../middleware/validate.middleware';
 import {createCarZSchema}  from '../models/cars';
 import { updateCarZSchema } from '../models/cars';
@@ -14,7 +14,7 @@ router.get('/', carController.getCars);
 router.post('/', validate(createCarZSchema), carController.createCar);
 router.get('/:id', carController.getCarById);
 router.put('/:id', validate(updateCarZSchema), carController.updateCar);
-router.delete('/:id', authenticateKey, carController.deleteCar);
+router.delete('/:id', authenticateJWT, validate(carParamsSchema), carController.deleteCar);
 router.get('/:id', validate(carParamsSchema),carController.getCarById);
 
 export default router;
