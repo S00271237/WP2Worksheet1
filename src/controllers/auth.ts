@@ -97,4 +97,10 @@ export class AuthController {
   };
 
 
+  getUsers = async (req: Request, res: Response): Promise<void> => {
+      // req.user was set by authenticateJWT
+      const user = await authService.getUserById(req.user!.sub);
+  }
+
+
 }

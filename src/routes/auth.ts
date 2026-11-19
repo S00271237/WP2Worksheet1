@@ -18,6 +18,7 @@ const authController = new AuthController();
 router.post('/register', validate(registerZSchema), authController.register);
 router.post('/login', validate(loginZSchema), authController.login);
 router.get('/me', authenticateJWT, authController.me);
+router.get('/users', authenticateJWT, authController.getUsers);
 
 
 export default router;
